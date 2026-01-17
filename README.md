@@ -1,41 +1,60 @@
-# BrainVLM (Laravel 12) – Front-end Starter
+# Clinical MRI Assistant (Laravel 12) — Clean Chat UI
 
-Paket ini berisi **front-end** (Blade + CSS/JS statis) untuk halaman aplikasi seperti demo BrainVLM: panel instruksi, chat UI, upload 4 modality (T1c/T1/T2/FLAIR), input Age/Gender, serta tombol **Full modality Diagnosis**, **Missing Modality Diagnosis**, dan **Restart**.
+UI **single-page chatbot** bergaya **rumah sakit (clean, dominan putih, tanpa gradasi)** untuk alur input kasus + upload MRI (multi-modality) + tombol diagnosis.  
+Proyek ini fokus ke **front-end (Blade + CSS + JS)** dan **belum menyertakan model/engine diagnosis**.
 
-**UI saja:** belum ada inference / pemrosesan MRI. Tombol Diagnosis saat ini hanya menambahkan pesan dummy ke chat dan menampilkan status validasi sederhana.
+> ⚠️ **Disclaimer Klinis:** Template ini **bukan** perangkat medis dan **tidak** boleh dipakai sebagai dasar keputusan klinis tanpa validasi, approval, dan integrasi sistem yang sesuai regulasi.
 
-## Cara pakai (Laravel 12)
-1. Buat project Laravel 12 baru (di mesin kamu):
-   ```bash
-   composer create-project laravel/laravel brainvlm-app
-   cd brainvlm-app
-   ```
+---
 
-2. Copy isi ZIP ini ke root project `brainvlm-app/` (merge folder). Pastikan file berikut tertimpa/terbuat:
-   - `routes/web.php`
-   - `app/Http/Controllers/BrainVlmController.php`
-   - `resources/views/layouts/app.blade.php`
-   - `resources/views/brainvlm/index.blade.php`
-   - `resources/views/components/dropzone.blade.php`
-   - `public/css/brainvlm.css`
-   - `public/js/brainvlm.js`
-   - `public/assets/brainvlm-logo.svg`
+## Preview
 
-3. Jalankan server:
-   ```bash
-   php artisan serve
-   ```
+- Layout: **1 halaman** (chat utama + panel “Case Setup” di kanan)
+- Tema: **hospital-grade**, minimal, readable untuk dokter
+- Aksi: Full Modality Diagnosis / Missing Modality Diagnosis / Reset
 
-4. Buka di browser:
-   - `http://127.0.0.1:8000/` (default diarahkan ke halaman BrainVLM)
-   - atau `http://127.0.0.1:8000/brainvlm`
+📸 Tambahkan screenshot setelah build:
+- `docs/screenshot-1.png`
+- `docs/screenshot-2.png`
 
-## Integrasi backend (nanti)
-UI ini sudah menyiapkan struktur form + input file. Saat kamu siap menghubungkan ke backend inference:
-- arahkan tombol Diagnosis untuk submit ke endpoint (misalnya `POST /diagnose`)
-- di controller, validasi input (file type/size/modality)
-- simpan file ke storage, panggil pipeline inference, lalu kirim balik hasil (via JSON / SSE / WebSocket) dan render ke chat.
+---
 
-## Catatan desain
-Tampilan dibuat bergaya “rumah sakit”: warna netral, kontras tinggi, tipografi rapi, dan layout bersih.
+## Fitur
 
+- ✅ **Single-page chat interface** (dokter fokus ke percakapan)
+- ✅ Panel **Case Setup**:
+  - Identitas pasien: **Age** & **Gender** (opsional)
+  - Upload MRI modalities: **T1c, T1, T2, FLAIR** (drag & drop / click)
+- ✅ Tombol aksi:
+  - **Full Modality Diagnosis**
+  - **Missing Modality Diagnosis**
+  - **Reset Case**
+- ✅ UI clean: dominan putih, spacing rapi, tipografi nyaman
+- ✅ Responsive (laptop klinik/PC radiologi)
+
+---
+
+## Tech Stack
+
+- **Laravel 12**
+- Blade Templates
+- Vanilla JS (AJAX-ready)
+- Custom CSS (tanpa framework UI berat)
+
+---
+
+## Persyaratan
+
+- PHP **8.2+**
+- Composer
+- (Opsional) Node.js jika kamu mau bundling asset sendiri
+
+---
+
+## Instalasi (Local)
+
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan serve
